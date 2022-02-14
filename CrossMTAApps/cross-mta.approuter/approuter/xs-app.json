@@ -1,0 +1,28 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/user-api(.*)",
+            "target": "$1",
+            "service": "sap-approuter-userapi"
+        },
+        {
+            "source": "^/api/(.*)",
+            "target": "$1",
+            "destination": "crossmta-srv-api-url",
+            "authenticationType": "none"
+        },
+        {
+            "source": "^/v2/api/(.*)",
+            "target": "/v2/$1",
+            "destination": "crossmta-srv-api-url",
+            "authenticationType": "none"
+        },
+        {
+            "source": "^(.*)",
+            "target": "/crossmtafrontend/$1",
+            "service": "html5-apps-repo-rt"
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+ID: crossmta-frontend
+_schema-version: 3.2.0
+version: 0.0.1
+parameters:
+  enable-parallel-deployments: true
+modules:
+  - name: crossmta-webapp_deployer
+    type: com.sap.application.content
+    path: deployer
+    requires:
+      - name: crossmta-frontend_html5_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: uimodule
+          artifacts:
+            - dist/uimodule.zip
+          target-path: resources/
+  - name: uimodule
+    type: html5
+    path: uimodule
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build:uimodule --prefix ..
+      supported-platforms: []
+resources:
+  - name: crossmta-frontend_html5_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+      config:
+        sizeLimit: 2

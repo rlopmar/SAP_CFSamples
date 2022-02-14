@@ -1,0 +1,69 @@
+_schema-version: '3.1'
+ID: crossmta_approuter
+version: 1.0.0
+description: 'Central AppRouter for other MTA projects'
+parameters:
+    enable-parallel-deployments: true
+
+build-parameters:
+    before-all:
+        - builder: custom
+          commands:
+              - npm --prefix ./approuter install ./approuter --only=prod --no-optional
+
+modules:
+    # ------------------ APP ROUTER MODULE -----------------------
+    - name: crossmta-approuter
+      # ------------------------------------------------------------
+      type: approuter.nodejs
+      path: approuter
+      parameters:
+        disk-quota: 512M
+        memory: 512M
+      requires:
+        - name: crossmta-uaa
+        - name: crossmta-frontend-destination
+        - name: crossmta-frontend-html5_repo_runtime
+        - name: crossmta-srv-config
+          group: destinations
+          properties:
+            name: crossmta-srv-api-url
+            url: ~{srv-url}
+            timeout: 60000
+            forwardAuthToken: true
+
+resources:
+    # ----------------------- UAA SERVICE ------------------------
+    - name: crossmta-uaa
+      # ------------------------------------------------------------
+      type: org.cloudfoundry.managed-service
+      parameters:
+          service: xsuaa
+          service-plan: application
+          path: ./xs-security.json
+
+    - name: crossmta-frontend-destination
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service-plan: lite
+        service: destination
+        config:
+          HTML5Runtime_enabled: true
+          version: 1.0.0
+
+    - name: crossmta-srv-config
+      type: configuration
+      parameters: #all optional but it makes sense for at least one to be used
+        #you can select which exact configuration to consume with a single param in a *.mtaext file
+        provider-nid: mta
+        provider-id: crossmta-srv:crossmta-srv-api
+        target: 
+            org: ${org}
+            space: ${space}
+        version: ">=1.0.0"
+
+    - name: crossmta-frontend-html5_repo_runtime
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service-plan: app-runtime
+        service: html5-apps-repo

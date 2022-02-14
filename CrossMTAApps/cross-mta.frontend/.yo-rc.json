@@ -1,0 +1,22 @@
+{
+  "generator-template-ui5-project": {
+    "projectname": "frontend",
+    "namespaceUI5": "crossmta",
+    "platform": "SAP HTML5 Application Repository service for SAP BTP",
+    "viewtype": "XML",
+    "ui5libs": "Content delivery network (SAPUI5)",
+    "newdir": false,
+    "codeassist": false,
+    "namespaceURI": "crossmta",
+    "opa5pos": [
+      "Main"
+    ],
+    "opa5Journeys": [
+      "Main"
+    ],
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}

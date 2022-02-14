@@ -1,0 +1,34 @@
+<mvc:View controllerName="crossmta.frontend.controller.MainView" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <List
+                            backgroundDesign="Solid"
+                            items="{/Projects}"
+                        >
+                            <items>
+                                <StandardListItem
+                                    activeIcon=""
+                                    adaptTitleSize="true"
+                                    description=""
+                                    icon=""
+                                    iconDensityAware="true"
+                                    iconInset="true"
+                                    info="{customer}"
+                                    infoState="None"
+                                    infoTextDirection="Inherit"
+                                    title="{name}"
+                                    titleTextDirection="Inherit"
+                                >
+                                    
+                                </StandardListItem>
+                            </items>
+                        </List>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>

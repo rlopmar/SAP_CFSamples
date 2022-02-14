@@ -1,0 +1,48 @@
+---
+_schema-version: '3.1'
+ID: crossmta-srv
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --only=prod --no-optional
+        - npx -p @sap/cds-dk cds build --production
+
+modules:
+  - name: crossmta-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    provides:
+      - name: crossmta-srv-api # required by consumers of CAP services (e.g. approuter)
+        public: true
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: crossmta-uaa
+      - name: crossmta-srv-db
+
+  - name: crossmta-srv-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: crossmta-srv-db
+
+resources:
+  - name: crossmta-srv-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana # or 'hanatrial' on trial landscapes
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+
+  - name: crossmta-uaa
+    type: org.cloudfoundry.existing-service
