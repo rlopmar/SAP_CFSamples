@@ -1,5 +1,5 @@
 {
-    "xsappname": "central_approuter_xsuaa",
+    "xsappname": "central_approuter-xsuaa",
     "tenant-mode": "dedicated",
     "description": "Security profile for: central_approuter",
     "scopes": [

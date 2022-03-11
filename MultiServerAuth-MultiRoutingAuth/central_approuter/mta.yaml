@@ -25,13 +25,13 @@ modules:
           memory: 256M
           disk-quota: 256M
       requires:
-        - name: central_approuter_xsuaa
-        - name: html5RepoRuntime
-        - name: html5RepoRuntime_destination
+        - name: central_approuter-xsuaa
+        - name: html5_repo_runtime
+        - name: destination_service
 
 resources:
     # ----------------------- UAA SERVICE ------------------------
-    - name: central_approuter_xsuaa
+    - name: central_approuter-xsuaa
     # ------------------------------------------------------------
       type: org.cloudfoundry.managed-service
       parameters:
@@ -40,20 +40,20 @@ resources:
           path: ./xs-security.json
 
     # ----------------------- HTML5 App repo runtime instance ------------------------
-    - name: html5RepoRuntime
+    - name: html5_repo_runtime
     # ------------------------------------------------------------
       type: org.cloudfoundry.managed-service
       parameters:
         service-plan: app-runtime
         service: html5-apps-repo
 
-    # ----------------------- HTML5 App repo destination  ------------------------
-    - name: html5RepoRuntime_destination
-    # ------------------------------------------------------------
-      type: org.cloudfoundry.managed-service
-      parameters:
-        service-plan: lite
-        service: destination
-        config:
-          HTML5Runtime_enabled: true
-          version: 1.0.0
+    - name: destination_service
+      type: org.cloudfoundry.existing-service # Comment this line and uncomment the following ones if the instance does not exist yet
+      #type: org.cloudfoundry.managed-service
+      #parameters:
+        #service-name: destination_service
+        #service: destination
+        #service-plan: lite
+        #config:
+          #HTML5Runtime_enabled: true
+          #version: 1.0.0

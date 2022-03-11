@@ -1,0 +1,45 @@
+---
+_schema-version: '3.1'
+ID: two_api
+version: 1.0.0
+description: "CAP Project: Exposing API - two_api"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --only=prod --no-optional
+        - npx -p @sap/cds-dk cds build --production
+
+modules:
+  - name: two_api-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: two_api-db
+
+  - name: two_api-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: two_api-db
+
+resources:
+  - name: two_api-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana # or 'hanatrial' on trial landscapes
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}

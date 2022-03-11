@@ -1,5 +1,5 @@
 {    
-  "xsappname": "one_api_xsuaa",
+  "xsappname": "one_api-xsuaa",
   "tenant-mode": "dedicated",
   "description": "Security profile for: one_api server",
   "scopes": [
@@ -42,5 +42,14 @@
       ],
       "attribute-references": []
     }
-  ]
+  ],
+  "oauth2-configuration": {
+      "redirect-uris": [
+          "https://*.eu10.applicationstudio.cloud.sap/**",
+          "https://*.applicationstudio.cloud.sap/**",
+          "https://*.cfapps.eu10.hana.ondemand.com/**",
+          "https://*.eu10.hana.ondemand.com/**",
+          "http://localhost:*/**"
+      ]
+  }
 }

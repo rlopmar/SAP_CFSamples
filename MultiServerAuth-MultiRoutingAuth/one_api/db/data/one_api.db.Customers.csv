@@ -1,4 +1,4 @@
-firstName,lastName,email
-John,Doe,j.doe@email.com
-Jane,Smith,j.smith@email.com
-Jonas,Chang,j.chang@email.com
+ID,firstName,lastName,email
+35475c9d-8d03-404c-9b46-213ba6f588fa,John,Doe,j.doe@email.com
+5691bbf7-0b75-476e-812f-a28e2e4d2abb,Jane,Smith,j.smith@email.com
+260e103b-d44c-4ccd-bde5-cae4e853a9ff,Jonas,Chang,j.chang@email.com
