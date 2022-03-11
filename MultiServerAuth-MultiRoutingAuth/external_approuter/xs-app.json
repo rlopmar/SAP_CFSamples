@@ -1,0 +1,19 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/api/one/(.*)",
+            "target": "$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_one_api",
+            "destination": "one_api_dest"
+        },
+        {
+            "source": "^/api/two/(.*)",
+            "target": "$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_two_api",
+            "destination": "two_api_dest"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{    
+  "xsappname": "one_api_xsuaa",
+  "tenant-mode": "dedicated",
+  "description": "Security profile for: one_api server",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.one_api_basic_reader",
+      "description": "READ certain entities (basic ones) in one_api server"
+    },
+    {
+      "name": "$XSAPPNAME.one_api_basic_editor",
+      "description": "READ and WRITE certain entities (basic ones) in one_api server"
+    },
+    {
+      "name": "$XSAPPNAME.app_one_api_admin",
+      "description": "READ and WRITE all entities in one_api server"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "one_api_basic_reader",
+      "description": "READ certain entities (basic ones) in one_api server",
+      "scope-references": [
+        "$XSAPPNAME.one_api_basic_reader"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "one_api_basic_editor",
+      "description": "READ and WRITE certain entities (basic ones) in one_api server",
+      "scope-references": [
+        "$XSAPPNAME.one_api_basic_editor"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "app_one_api_admin",
+      "description": "READ and WRITE all entities in one_api server",
+      "scope-references": [
+        "$XSAPPNAME.app_one_api_admin"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

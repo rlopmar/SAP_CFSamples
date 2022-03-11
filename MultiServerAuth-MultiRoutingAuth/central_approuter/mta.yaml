@@ -1,0 +1,59 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = ccodataservice
+## language=nodejs; multitenant=false
+## approuter=
+_schema-version: '3.1'
+ID: central_approuter
+version: 1.0.0
+description: 'Central AppRouter for the project. Main users entry point.'
+parameters:
+    enable-parallel-deployments: true
+
+build-parameters:
+    before-all:
+        - builder: custom
+          commands:
+              - npm install --only=prod --no-optional
+
+modules:
+    # ------------------ APP ROUTER MODULE -----------------------
+    - name: central_approuter
+    # ------------------------------------------------------------
+      type: approuter.nodejs
+      path: .
+      parameters:
+          memory: 256M
+          disk-quota: 256M
+      requires:
+        - name: central_approuter_xsuaa
+        - name: html5RepoRuntime
+        - name: html5RepoRuntime_destination
+
+resources:
+    # ----------------------- UAA SERVICE ------------------------
+    - name: central_approuter_xsuaa
+    # ------------------------------------------------------------
+      type: org.cloudfoundry.managed-service
+      parameters:
+          service: xsuaa
+          service-plan: application
+          path: ./xs-security.json
+
+    # ----------------------- HTML5 App repo runtime instance ------------------------
+    - name: html5RepoRuntime
+    # ------------------------------------------------------------
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service-plan: app-runtime
+        service: html5-apps-repo
+
+    # ----------------------- HTML5 App repo destination  ------------------------
+    - name: html5RepoRuntime_destination
+    # ------------------------------------------------------------
+      type: org.cloudfoundry.managed-service
+      parameters:
+        service-plan: lite
+        service: destination
+        config:
+          HTML5Runtime_enabled: true
+          version: 1.0.0

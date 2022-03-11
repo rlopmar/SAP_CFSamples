@@ -1,0 +1,33 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/api/one/(.*)",
+            "target": "$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_one_api",
+            "destination": "one_api_dest"
+        },
+        {
+            "source": "^/api/two/(.*)",
+            "target": "$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_two_api",
+            "destination": "two_api_dest"
+        },
+        {
+            "source": "^/uibasicuserapp/(.*)",
+            "target": "/uibasicuserapp/$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_html5_repo_runtime",
+            "service": "html5-apps-repo-rt"
+        },
+        {
+            "source": "^/uiadminuserapp/(.*)",
+            "target": "/uiadminuserapp/$1",
+            "authenticationType": "xsuaa",
+            "scope": "$XSAPPNAME.routing_html5_repo_runtime",
+            "service": "html5-apps-repo-rt"
+        }
+    ]
+}
