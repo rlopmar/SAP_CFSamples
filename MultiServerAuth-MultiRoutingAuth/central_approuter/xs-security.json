@@ -14,27 +14,93 @@
         {
             "name": "$XSAPPNAME.routing_html5_repo_runtime",
             "description": "Allow routing to HTML5 Application Repo"
+        },
+        {
+          "name": "$XSAPPNAME.one_api_basic_read",
+          "description": "READ certain entities (basic ones) in one_api server"
+        },
+        {
+          "name": "$XSAPPNAME.one_api_basic_write",
+          "description": "WRITE certain entities (basic ones) in one_api server"
+        },
+        {
+          "name": "$XSAPPNAME.one_api_admin",
+          "description": "READ and WRITE all entities in one_api server"
+        },
+        {
+          "name": "$XSAPPNAME.two_api_basic_read",
+          "description": "READ certain entities (basic ones) in two_api server"
+        },
+        {
+          "name": "$XSAPPNAME.two_api_basic_write",
+          "description": "WRITE certain entities (basic ones) in two_api server"
+        },
+        {
+          "name": "$XSAPPNAME.two_api_admin",
+          "description": "READ and WRITE all entities in two_api server"
         }
     ],
     "attributes": [],
     "role-templates": [
         {
-            "name": "central_routing_one_api",
-            "description": "Allow routing to one_api server",
-            "scope-references": ["$XSAPPNAME.routing_one_api"],
-            "attribute-references": []
+          "name": "one_api_basic_reader",
+          "description": "READ certain entities (basic ones) in one_api server",
+          "scope-references": [
+            "$XSAPPNAME.one_api_basic_read",
+            "$XSAPPNAME.routing_one_api"
+          ],
+          "attribute-references": []
         },
         {
-            "name": "central_routing_two_api",
-            "description": "Allow routing to two_api server",
-            "scope-references": ["$XSAPPNAME.routing_two_api"],
-            "attribute-references": []
+          "name": "one_api_basic_editor",
+          "description": "READ and WRITE certain entities (basic ones) in one_api server",
+          "scope-references": [
+            "$XSAPPNAME.one_api_basic_read",
+            "$XSAPPNAME.one_api_basic_write",
+            "$XSAPPNAME.routing_one_api"
+          ],
+          "attribute-references": []
         },
         {
-            "name": "central_routing_html5_repo_runtime",
-            "description": "Allow routing to HTML5 Application Repo",
-            "scope-references": ["$XSAPPNAME.routing_html5_repo_runtime"],
-            "attribute-references": []
+          "name": "one_api_admin",
+          "description": "READ and WRITE all entities in one_api server",
+          "scope-references": [
+            "$XSAPPNAME.one_api_basic_read",
+            "$XSAPPNAME.one_api_basic_write",
+            "$XSAPPNAME.one_api_admin",
+            "$XSAPPNAME.routing_one_api"
+          ],
+          "attribute-references": []
+        },
+        {
+          "name": "two_api_basic_reader",
+          "description": "READ certain entities (basic ones) in two_api server",
+          "scope-references": [
+            "$XSAPPNAME.two_api_basic_read",
+            "$XSAPPNAME.routing_two_api"
+          ],
+          "attribute-references": []
+        },
+        {
+          "name": "two_api_basic_editor",
+          "description": "READ and WRITE certain entities (basic ones) in two_api server",
+          "scope-references": [
+            "$XSAPPNAME.two_api_basic_read",
+            "$XSAPPNAME.two_api_basic_write",
+            "$XSAPPNAME.routing_two_api"
+          ],
+          "attribute-references": []
+        },
+        {
+          "name": "two_api_admin",
+          "description": "READ and WRITE all entities in two_api server",
+          "scope-references": [
+            "$XSAPPNAME.two_api_basic_read",
+            "$XSAPPNAME.two_api_basic_write",
+            "$XSAPPNAME.two_api_admin",
+            "$XSAPPNAME.routing_two_api"
+          ],
+          "attribute-references": []
         }
     ],
     "oauth2-configuration": {

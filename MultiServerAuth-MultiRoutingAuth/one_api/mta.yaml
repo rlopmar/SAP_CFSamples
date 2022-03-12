@@ -26,7 +26,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: one_api-db
-      - name: one_api-xsuaa
+      - name: central_approuter-xsuaa
 
   - name: one_api-db-deployer
     type: hdb
@@ -35,29 +35,6 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: one_api-db
-  - name: destination-content
-    type: com.sap.application.content
-    requires:
-    - name: one_api-xsuaa
-      parameters:
-        service-key:
-          name: one_api-xsuaa-key
-    - name: destination_service
-      parameters:
-        content-target: true
-    - name: srv_api
-    build-parameters:
-      no-source: true
-    parameters:
-      content:
-        instance:
-          existing_destinations_policy: update
-          destinations:
-          - Name: one_api_dest_oauth
-            URL: ~{srv_api/srv-url}
-            Authentication: OAuth2ClientCredentials
-            TokenServiceInstanceName: one_api-xsuaa
-            TokenServiceKeyName: one_api-xsuaa-key
 
 resources:
   - name: one_api-db
@@ -68,20 +45,28 @@ resources:
     properties:
       hdi-service-name: ${service-name}
 
-  - name: one_api-xsuaa
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
+  - name: central_approuter-xsuaa
+    type: org.cloudfoundry.existing-service
 
   - name: destination_service
-    type: org.cloudfoundry.existing-service # Comment this line and uncomment the following ones if the instance does not exist yet
-    #type: org.cloudfoundry.managed-service
-    #parameters:
-      #service-name: destination_service
-      #service: destination
-      #service-plan: lite
-      #config:
-        #HTML5Runtime_enabled: true
-        #version: 1.0.0
+    #type: org.cloudfoundry.existing-service # Comment this line and uncomment the following ones if the instance does not exist yet
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: srv_api
+    parameters:
+      service-name: destination_service
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: one_api_dest
+                Description: Destination to one_api server
+                Authentication: NoAuthentication
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv_api/srv-url}
+                HTML5.ForwardAuthToken: true

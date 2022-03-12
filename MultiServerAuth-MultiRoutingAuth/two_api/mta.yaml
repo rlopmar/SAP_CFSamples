@@ -21,11 +21,12 @@ modules:
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: srv_api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
     requires:
       - name: two_api-db
+      - name: central_approuter-xsuaa
 
   - name: two_api-db-deployer
     type: hdb
@@ -43,3 +44,29 @@ resources:
       service-plan: hdi-shared
     properties:
       hdi-service-name: ${service-name}
+
+  - name: central_approuter-xsuaa
+    type: org.cloudfoundry.existing-service
+
+  - name: destination_service
+    #type: org.cloudfoundry.existing-service # Comment this line and uncomment the following ones if the instance does not exist yet
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: srv_api
+    parameters:
+      service-name: destination_service
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: two_api_dest
+                Description: Destination to two_api server
+                Authentication: NoAuthentication
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv_api/srv-url}
+                HTML5.ForwardAuthToken: true

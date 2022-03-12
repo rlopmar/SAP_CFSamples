@@ -48,12 +48,4 @@ resources:
         service: html5-apps-repo
 
     - name: destination_service
-      type: org.cloudfoundry.existing-service # Comment this line and uncomment the following ones if the instance does not exist yet
-      #type: org.cloudfoundry.managed-service
-      #parameters:
-        #service-name: destination_service
-        #service: destination
-        #service-plan: lite
-        #config:
-          #HTML5Runtime_enabled: true
-          #version: 1.0.0
+      type: org.cloudfoundry.existing-service

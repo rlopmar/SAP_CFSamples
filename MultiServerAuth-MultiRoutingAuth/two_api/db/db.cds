@@ -10,6 +10,7 @@ entity Orders : cuid {
 }
 
 entity OrderItems : cuid {
-    productId : UUID;
-    order     : Association to Orders;
+    productId   : UUID;
+    productName : String;
+    order       : Association to Orders;
 }
