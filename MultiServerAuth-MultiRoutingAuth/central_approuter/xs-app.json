@@ -16,6 +16,12 @@
             "scope": "$XSAPPNAME.routing_two_api",
             "destination": "two_api_dest",
             "csrfProtection": false
+        },
+        { 
+            "source": "^(/.*)",                                    
+            "target": "$1",                                        
+            "service": "html5-apps-repo-rt", 
+            "authenticationType": "xsuaa"
         }
     ]
 }

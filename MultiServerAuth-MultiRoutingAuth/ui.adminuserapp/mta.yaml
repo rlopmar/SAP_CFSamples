@@ -4,16 +4,7 @@ version: 0.0.1
 parameters:
   enable-parallel-deployments: true
 modules:
-  - name: adminuserapp
-    type: nodejs
-    path: approuter
-    parameters:
-      disk-quota: 512M
-      memory: 512M
-    requires:
-      - name: adminuserapp_destination
-      - name: adminuserapp_html5_repo_runtime
-      - name: adminuserapp_uaa
+
   - name: webapp_deployer
     type: com.sap.application.content
     path: deployer
@@ -28,6 +19,7 @@ modules:
           artifacts:
             - dist/uimodule.zip
           target-path: resources/
+
   - name: uimodule
     type: html5
     path: uimodule
@@ -36,15 +28,9 @@ modules:
       commands:
         - npm run build:uimodule --prefix ..
       supported-platforms: []
+
 resources:
-  - name: adminuserapp_destination
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: lite
-      service: destination
-      config:
-        HTML5Runtime_enabled: true
-        version: 1.0.0
+
   - name: adminuserapp_html5_repo_host
     type: org.cloudfoundry.managed-service
     parameters:
@@ -52,14 +38,3 @@ resources:
       service: html5-apps-repo
       config:
         sizeLimit: 2
-  - name: adminuserapp_html5_repo_runtime
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: app-runtime
-      service: html5-apps-repo
-  - name: adminuserapp_uaa
-    type: org.cloudfoundry.managed-service
-    parameters:
-      path: ./xs-security.json
-      service-plan: application
-      service: xsuaa

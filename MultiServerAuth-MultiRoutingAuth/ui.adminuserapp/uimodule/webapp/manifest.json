@@ -9,7 +9,23 @@
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
-    "resources": "resources.json"
+    "resources": "resources.json",
+    "dataSources": {
+      "shopService": {
+          "uri": "/api/one/v2/shop/",
+          "type": "OData",
+          "settings": {
+              "localUri": "localService/metadata.xml"
+          }
+      },
+      "checkoutService": {
+        "uri": "/api/two/v2/checkout/",
+        "type": "OData",
+        "settings": {
+            "localUri": "localService/metadata.xml"
+        }
+    }
+  }
   },
   "sap.ui": {
     "technology": "UI5",
@@ -46,6 +62,26 @@
         "settings": {
           "bundleName": "ui.adminuserapp.i18n.i18n"
         }
+      },
+      "shop": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+            "defaultOperationMode": "Server",
+            "defaultBindingMode": "TwoWay",
+            "defaultCountMode": "Request"
+        },
+        "dataSource": "shopService",
+        "preload": true
+      },
+      "checkout": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+            "defaultOperationMode": "Server",
+            "defaultBindingMode": "TwoWay",
+            "defaultCountMode": "Request"
+        },
+        "dataSource": "checkoutService",
+        "preload": true
       }
     },
     "resources": {
