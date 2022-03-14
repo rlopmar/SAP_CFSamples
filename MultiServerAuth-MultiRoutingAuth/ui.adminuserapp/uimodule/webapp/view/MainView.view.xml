@@ -3,7 +3,57 @@
         <App id="app">
             <pages>
                 <Page id="page" title="{i18n>title}">
-                    <content />
+                    <content>
+                        <IconTabBar
+                            id="idIconTabBarFiori2"
+                            expanded="{device>/isNoPhone}"
+                            class="sapUiResponsiveContentPadding">
+                            <items>
+                                <IconTabFilter
+                                    text="Products"
+                                    key="products">
+                                    <List
+                                        items="{shop>/Products}"
+                                        headerText="Products"
+                                        growing="true"
+                                        growingThreshold="6"
+                                        growingScrollToLoad="false">
+                                        <ObjectListItem
+                                            title="{shop>name}"
+                                            number="{shop>price}"
+                                            numberUnit="{shop>currency}"/>
+                                    </List>
+                                </IconTabFilter>
+                                <IconTabFilter
+                                    text="Orders"
+                                    key="orders">
+                                    <List
+                                        items="{checkout>/Orders}"
+                                        headerText="Orders"
+                                        growing="true"
+                                        growingThreshold="6"
+                                        growingScrollToLoad="false">
+                                        <StandardListItem
+                                            title="{checkout>ID}"/>
+                                    </List>
+                                </IconTabFilter>
+                                <IconTabFilter
+                                    text="Customers"
+                                    key="customers">
+                                    <List
+                                        items="{shop>/Customers}"
+                                        headerText="Customers"
+                                        growing="true"
+                                        growingThreshold="6"
+                                        growingScrollToLoad="false">
+                                        <StandardListItem
+                                            title="{shop>firstName} {shop>lastName}"
+                                            description="{shop>email}"/>
+                                    </List>
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </content>
                 </Page>
             </pages>
         </App>
