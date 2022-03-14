@@ -43,7 +43,7 @@
     "attributes": [],
     "role-templates": [
         {
-          "name": "one_api_basic_reader",
+          "name": "one_api_basic_viewer",
           "description": "READ certain entities (basic ones) in one_api server",
           "scope-references": [
             "$XSAPPNAME.one_api_basic_read",
@@ -73,7 +73,7 @@
           "attribute-references": []
         },
         {
-          "name": "two_api_basic_reader",
+          "name": "two_api_basic_viewer",
           "description": "READ certain entities (basic ones) in two_api server",
           "scope-references": [
             "$XSAPPNAME.two_api_basic_read",

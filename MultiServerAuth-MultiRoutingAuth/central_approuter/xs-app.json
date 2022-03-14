@@ -6,7 +6,8 @@
             "target": "/$1",
             "authenticationType": "xsuaa",
             "scope": "$XSAPPNAME.routing_one_api",
-            "destination": "one_api_dest"
+            "destination": "one_api_dest",
+            "csrfProtection": false
         },
         {
             "source": "^/api/two/(.*)",

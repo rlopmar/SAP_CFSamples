@@ -7,10 +7,10 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^5",
+    "@sap/xssec": "^3",
     "express": "^4",
     "hdb": "^0.18.3",
-    "@sap/xssec": "^3",
-    "passport": "^0"
+    "passport": "^0.5.2"
   },
   "devDependencies": {
     "sqlite3": "^5.0.2"
@@ -49,7 +49,8 @@
         "kind": "sql"
       },
       "uaa": {
-        "kind": "xsuaa"
+        "kind": "xsuaa",
+        "credentials": {}
       }
     },
     "hana": {
