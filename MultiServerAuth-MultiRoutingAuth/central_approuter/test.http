@@ -1,0 +1,33 @@
+
+###
+POST http://localhost:5001/api/two/v2/checkout/Orders
+Content-Type: application/json
+Cookie: JSESSIONID=s%3AMOAlhZ5bt4pu8MdUgJ1oNxBvXPlkyoj0.M3tEu1dnmOVdj%2BCDAaIVxqATE0ro6B2SXGnw1LTE8tk
+
+{
+    "userId"        : "0923c061-5080-4ed1-85bb-3d6a71a9576c"
+}
+
+###
+POST http://localhost:5001/api/two/v2/checkout/OrderItems
+Content-Type: application/json
+Cookie: JSESSIONID=s%3AMOAlhZ5bt4pu8MdUgJ1oNxBvXPlkyoj0.M3tEu1dnmOVdj%2BCDAaIVxqATE0ro6B2SXGnw1LTE8tk
+
+{
+    "productId": "2b5571e3-199c-413e-9347-b10bcb7ec641",
+    "productName": "Prod4",
+    "order_ID": "2b5571e3-199c-413e-9347-b10bcb7ec641"
+}
+
+
+###
+POST http://localhost:5001/api/one/shop/Products
+Content-Type: application/json
+Cookie: JSESSIONID=s%3AMOAlhZ5bt4pu8MdUgJ1oNxBvXPlkyoj0.M3tEu1dnmOVdj%2BCDAaIVxqATE0ro6B2SXGnw1LTE8tk
+
+{
+    "name"        : "Inserted Product 1",
+    "description" : "Inserted Product 1",
+    "price"       : 999,
+    "currency"    : "USD"
+}
